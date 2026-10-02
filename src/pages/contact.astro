@@ -1,0 +1,94 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+
+const crumbs = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: site.url },
+    { '@type': 'ListItem', position: 2, name: 'Contact', item: `${site.url}/contact` },
+  ],
+};
+
+const contactSchema = {
+  '@type': 'ContactPage',
+  name: 'Contact White City Decorating Contractors',
+  url: `${site.url}/contact`,
+  mainEntity: { '@id': `${site.url}/#business` },
+};
+---
+
+<Base
+  title="Contact"
+  description="Call Simon Hewitt on 07903 197206 or email simon-hewitt@hotmail.co.uk for painting and decorating in Sandy and nearby towns."
+  schemas={[crumbs, contactSchema]}
+>
+  <Fragment slot="hero">
+    <p class="crumbs"><a href="/">Home</a> / Contact</p>
+    <h1>Contact</h1>
+  </Fragment>
+
+  <section class="band prose">
+    <p>The quickest way to reach Simon is the phone. Tell him the rooms and the town.</p>
+    <p>
+      <a class="phone" href={`tel:${site.phoneTel}`}>{site.phoneDisplay}</a><br />
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+    </p>
+    <p>
+      {site.address.street}, {site.address.locality}, {site.address.postcode}<br />
+      This is his base in Sandy, not a shop. Please call before you visit.
+    </p>
+    <p>
+      Monday to Friday, 8am to 5pm.<br />
+      Saturday, 8am to 12:30pm.<br />
+      Sunday, closed.
+    </p>
+    <p>
+      <a href={site.googleMaps} rel="noopener noreferrer">Google profile</a><br />
+      <a href={site.facebook} rel="noopener noreferrer">Facebook page</a>
+    </p>
+
+    <h2>Send a note</h2>
+    <p class="note">
+      This opens your email app with the message filled in. If nothing opens, email
+      {site.email} yourself, or call.
+    </p>
+    <form id="quote-form">
+      <label>
+        Your name
+        <input name="name" autocomplete="name" required />
+      </label>
+      <label>
+        Phone
+        <input name="phone" type="tel" autocomplete="tel" required />
+      </label>
+      <label>
+        Town
+        <input name="town" autocomplete="address-level2" required />
+      </label>
+      <label>
+        What needs doing
+        <textarea name="message" required placeholder="Rooms, and whether it is paint, spray, wallpaper, or stairs."></textarea>
+      </label>
+      <button type="submit">Email Simon</button>
+    </form>
+    <p id="form-status" class="note" role="status"></p>
+  </section>
+</Base>
+
+<script is:inline>
+  const form = document.getElementById('quote-form');
+  const status = document.getElementById('form-status');
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const name = String(data.get('name') || '').trim();
+    const phone = String(data.get('phone') || '').trim();
+    const town = String(data.get('town') || '').trim();
+    const message = String(data.get('message') || '').trim();
+    const body = `Name: ${name}\nPhone: ${phone}\nTown: ${town}\n\n${message}`;
+    const href = `mailto:simon-hewitt@hotmail.co.uk?subject=${encodeURIComponent('Decorating quote from ' + name)}&body=${encodeURIComponent(body)}`;
+    status.textContent = 'Opening your email app. If it does not open, call 07903 197206.';
+    window.location.href = href;
+  });
+</script>

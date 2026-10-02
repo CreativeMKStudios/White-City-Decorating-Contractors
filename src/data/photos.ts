@@ -1,0 +1,57 @@
+export type Photo = { id: string; alt: string; width: number; height: number };
+
+export const photos: Photo[] = [
+  { id: "01", alt: "Black painted banister, spindles and panelled doors on a landing, with the floor protected", width: 1400, height: 1866 },
+  { id: "02", alt: "Old paint being scraped from a stair rail before it is repainted", width: 1400, height: 1866 },
+  { id: "03", alt: "Navy kitchen units sprayed with brass handles, a range cooker and cream tiles", width: 1400, height: 1050 },
+  { id: "04", alt: "Grey gloss kitchen units in a room with pale pink walls", width: 1400, height: 1050 },
+  { id: "05", alt: "Sage green room with wall panelling, white skirting and a wood floor", width: 1400, height: 1050 },
+  { id: "06", alt: "Zinsser Peel Stop primer on a job, used to bind loose old paint", width: 1400, height: 1866 },
+  { id: "07", alt: "Beige bedroom corner with a straight line where the wall meets the ceiling", width: 1400, height: 1866 },
+  { id: "08", alt: "Navy kitchen island and units during a spray job, before the floor is finished", width: 1400, height: 1866 },
+  { id: "09", alt: "Hallway with a freshly painted ceiling and light walls", width: 1400, height: 1866 },
+  { id: "10", alt: "Living room with painted walls and a television in place", width: 1400, height: 1866 },
+  { id: "11", alt: "Glazed timber doors in a painted hallway", width: 1400, height: 1866 },
+  { id: "12", alt: "A wall filled and prepared before the finish coat", width: 1400, height: 1866 },
+  { id: "13", alt: "Built-in wardrobes painted in a flat white finish", width: 1400, height: 1050 },
+  { id: "14", alt: "A dark grey door and frame after painting", width: 1400, height: 1866 },
+  { id: "15", alt: "Hallway with patterned wallpaper next to a painted wall", width: 1400, height: 1866 },
+  { id: "16", alt: "Pale green wall panelling with a clean edge along the floor", width: 1400, height: 1050 },
+  { id: "17", alt: "Living room with a painted chimney breast", width: 1400, height: 1866 },
+  { id: "18", alt: "Hall with glazed timber doors and painted woodwork", width: 1400, height: 1866 },
+  { id: "19", alt: "Bedroom with painted walls and a window", width: 1400, height: 1866 },
+  { id: "20", alt: "Living room with wallpaper and painted woodwork", width: 1400, height: 1866 },
+  { id: "21", alt: "White banister during decoration, with the stairs covered", width: 1400, height: 1866 },
+  { id: "22", alt: "Black stair balustrade part way through the job", width: 1400, height: 1866 },
+  { id: "23", alt: "Bedroom with painted walls beside a dark headboard", width: 1400, height: 1866 },
+  { id: "24", alt: "Living room with a wooden cabinet and newly painted walls", width: 1400, height: 1866 },
+  { id: "25", alt: "Ceiling and wall junction after painting", width: 1400, height: 1866 },
+  { id: "26", alt: "Bedroom wall finished in a warm neutral paint", width: 1400, height: 1866 },
+  { id: "27", alt: "Fireplace wall painted around the mantel", width: 1400, height: 1050 },
+  { id: "28", alt: "Hallway with an arched opening and painted walls", width: 1400, height: 1866 },
+  { id: "29", alt: "Grey kitchen units after spraying", width: 1400, height: 1866 },
+  { id: "30", alt: "Still from a job video showing decorating work", width: 486, height: 1080 },
+  { id: "31", alt: "Still from a job video showing a painted room", width: 486, height: 1080 },
+  { id: "32", alt: "Still from a job video of a decorating project", width: 1080, height: 488 },
+  { id: "33", alt: "Still from a job video of interior paintwork", width: 1080, height: 486 },
+  { id: "34", alt: "Still from a job video on site", width: 486, height: 1080 },
+  { id: "35", alt: "Still from a job video of a room being finished", width: 486, height: 1080 },
+  { id: "36", alt: "Still from a job video of paintwork", width: 486, height: 1080 },
+  { id: "37", alt: "Black spindles and handrail on a staircase", width: 1400, height: 1866 },
+  { id: "38", alt: "Staircase with black woodwork and protected treads", width: 1400, height: 1866 },
+  { id: "39", alt: "Close view of a painted stair stringer", width: 1400, height: 1866 },
+  { id: "40", alt: "White banister and spindles after painting", width: 1400, height: 1866 },
+  { id: "41", alt: "Black painted door opening onto a landing", width: 1400, height: 1866 },
+  { id: "42", alt: "Hallway with painted walls and woodwork", width: 1400, height: 1866 },
+  { id: "43", alt: "Stairs with the treads covered while the woodwork is painted", width: 1400, height: 1866 },
+  { id: "44", alt: "Detail of a painted stair and handrail", width: 1400, height: 2488 },
+  { id: "45", alt: "Black panelled doors at the top of a staircase", width: 1400, height: 1866 },
+  { id: "46", alt: "Staircase with painted woodwork and covered steps", width: 1400, height: 1866 },
+  { id: "47", alt: "Painted doors and stair woodwork at the end of a job", width: 1400, height: 1866 },
+];
+
+export const heroPhotos = [photos[4], photos[2]];
+
+export function photoSrc(id: string, small = false) {
+  return small ? `/work/${id}-720.webp` : `/work/${id}.webp`;
+}

@@ -1,0 +1,40 @@
+---
+import { site } from '../data/site';
+---
+
+<footer class="site-footer">
+  <div class="foot-grid">
+    <div>
+      <strong>{site.name}</strong>
+      <p>
+        {site.address.street}<br />
+        {site.address.locality}, {site.address.region}, {site.address.postcode}
+      </p>
+      <p>
+        <a href={`tel:${site.phoneTel}`}>{site.phoneDisplay}</a><br />
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+      </p>
+      <p>
+        Monday to Friday, 8am to 5pm<br />
+        Saturday, 8am to 12:30pm<br />
+        Sunday, closed
+      </p>
+    </div>
+    <div>
+      <ul class="foot-links">
+        <li><a href="/about">About us</a></li>
+        <li><a href="/services">Services</a></li>
+        <li><a href="/projects">Gallery</a></li>
+        <li><a href="/reviews">Testimonials</a></li>
+        <li><a href="/areas">Areas</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+        <li><a href={site.facebook} rel="noopener noreferrer">Facebook</a></li>
+        <li><a href={site.googleMaps} rel="noopener noreferrer">Google profile</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="fine">
+    Simon works at your home. The Sandy address is his base, not a shop. Call before you visit.
+  </p>
+</footer>

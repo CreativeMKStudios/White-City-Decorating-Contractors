@@ -1,0 +1,27 @@
+---
+import { photoSrc, type Photo } from '../data/photos';
+
+interface Props {
+  photo: Photo;
+  sizes?: string;
+  eager?: boolean;
+  caption?: boolean;
+}
+
+const { photo, sizes = '(min-width: 900px) 50vw, 100vw', eager = false, caption = false } = Astro.props;
+---
+
+<figure>
+  <img
+    src={photoSrc(photo.id)}
+    srcset={`${photoSrc(photo.id, true)} 720w, ${photoSrc(photo.id)} ${photo.width}w`}
+    sizes={sizes}
+    width={photo.width}
+    height={photo.height}
+    alt={photo.alt}
+    loading={eager ? 'eager' : 'lazy'}
+    decoding="async"
+    fetchpriority={eager ? 'high' : 'auto'}
+  />
+  {caption && <figcaption>{photo.alt}</figcaption>}
+</figure>

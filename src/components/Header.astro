@@ -1,0 +1,45 @@
+---
+import { services } from '../data/services';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<div class="topbar">
+  <a class="logo" href="/" aria-label="White City Decorating Contractors, home">
+    <svg viewBox="0 0 64 64" aria-hidden="true">
+      <rect x="6" y="8" width="34" height="12" rx="2" fill="currentColor"></rect>
+      <rect x="10" y="11" width="26" height="6" fill="#BEC5B3"></rect>
+      <path d="M22 20v14M22 34h16" fill="none" stroke="currentColor" stroke-width="3"></path>
+      <rect x="42" y="28" width="9" height="18" fill="currentColor"></rect>
+      <path d="M42 46h9l-1 7h-7z" fill="currentColor"></path>
+      <rect x="40" y="22" width="13" height="8" fill="currentColor"></rect>
+    </svg>
+    <span class="word">
+      <span class="name">White City</span>
+      <span class="trade">decorator contractors</span>
+    </span>
+  </a>
+  <input id="nav-toggle" class="nav-toggle" type="checkbox" />
+  <div class="top-actions">
+    <a class="contact-btn" href="/contact">Contact</a>
+    <label class="menu-btn" for="nav-toggle">Menu</label>
+  </div>
+  <nav class="nav" aria-label="Main">
+    <a href="/about" aria-current={path === '/about' ? 'page' : undefined}>About us</a>
+    <details class="sub">
+      <summary>Services</summary>
+      <ul>
+        <li><a href="/services" aria-current={path === '/services' ? 'page' : undefined}>All services</a></li>
+        {services.map((service) => (
+          <li>
+            <a href={`/services/${service.slug}`} aria-current={path === `/services/${service.slug}` ? 'page' : undefined}>
+              {service.nav}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </details>
+    <a href="/projects" aria-current={path === '/projects' ? 'page' : undefined}>Gallery</a>
+    <a href="/reviews" aria-current={path === '/reviews' ? 'page' : undefined}>Testimonials</a>
+  </nav>
+</div>
