@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+import { reviews, googleRating, googleReviewCount } from '../data/reviews';
+
+const crumbs = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: site.url },
+    { '@type': 'ListItem', position: 2, name: 'Testimonials', item: `${site.url}/reviews` },
+  ],
+};
+---
+
+<Base
+  title="Testimonials"
+  description="Google reviews for White City Decorating Contractors in Sandy. 5.0 from 20 reviews. Five reviews are copied here in full."
+  schemas={[crumbs]}
+>
+  <Fragment slot="hero">
+    <p class="crumbs"><a href="/">Home</a> / Testimonials</p>
+    <h1>Testimonials</h1>
+  </Fragment>
+
+  <section class="band">
+    <div class="section-head">
+      <p>
+        Google shows {googleRating}.0 from {googleReviewCount} reviews for White City Decorating
+        Contractors. All {googleReviewCount} are five stars. The five below are copied in the
+        customer’s own words. The other fifteen are on the Google listing.
+      </p>
+      <p>
+        <a href={site.googleMaps} rel="noopener noreferrer">Read them on Google</a>
+      </p>
+    </div>
+    <div class="quotes">
+      {reviews.map((review) => (
+        <figure class="quote">
+          <blockquote>
+            <p style="white-space: pre-line">{review.text}</p>
+          </blockquote>
+          <figcaption>{review.name}, five stars on Google</figcaption>
+          {review.reply && <p class="reply">Simon replied: {review.reply}</p>}
+        </figure>
+      ))}
+    </div>
+  </section>
+</Base>

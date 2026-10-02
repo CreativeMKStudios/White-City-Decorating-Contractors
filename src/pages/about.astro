@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import { site } from '../data/site';
+import { photos } from '../data/photos';
+
+const crumbs = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: site.url },
+    { '@type': 'ListItem', position: 2, name: 'About us', item: `${site.url}/about` },
+  ],
+};
+---
+
+<Base
+  title="About us"
+  description="Simon Hewitt runs White City Decorating Contractors from Sandy. He paints and decorates homes, and customers on Google call him back."
+  image="/work/08.webp"
+  schemas={[crumbs]}
+>
+  <Fragment slot="hero">
+    <p class="crumbs"><a href="/">Home</a> / About us</p>
+    <h1>About us</h1>
+  </Fragment>
+
+  <section class="band prose">
+    <Photo photo={photos[7]} eager sizes="(min-width: 760px) 640px, 100vw" />
+    <h2>Simon Hewitt, painter and decorator</h2>
+    <p>
+      White City Decorating Contractors is Simon Hewitt’s painting and decorating business.
+      He is based at {site.address.street}, {site.address.locality}, {site.address.postcode}.
+      He works in your home. That address is not a shop, and there is no showroom to walk into.
+    </p>
+    <p>
+      Google lists the business as a painter. The Facebook page says the same thing in plain words:
+      professional painting and decorating. Simon does the work himself.
+    </p>
+    <h2>How the jobs go</h2>
+    <p>
+      People who have used him talk about the same things. He turns up when he says he will.
+      He protects the floors. He prepares the surface before he paints it. If old paint is
+      loose, he deals with that first. A tin of Zinsser Peel Stop shows up in the job photos
+      for that reason.
+    </p>
+    <p>
+      He uses spray equipment on doors, wardrobes and kitchen units when a brush would leave
+      more marks. Helen King, a Google reviewer, wrote that the spray finish is smooth and
+      that the preparation is what makes it so. He also gives colour advice and will say
+      which paint fits the room.
+    </p>
+    <p>
+      He keeps the house usable while he works, and he leaves the room tidy. Rob Shirley
+      had a whole house done after an extension, then called him back years later for the
+      lounge and kitchen. Other reviews say the same: people ask him back.
+    </p>
+    <h2>Hours</h2>
+    <p>
+      Monday to Friday, 8am to 5pm. Saturday, 8am to 12:30pm. Sunday, closed.
+      If you need a price, call {site.phoneDisplay} or email {site.email}.
+    </p>
+    <p><a href="/contact">Go to the contact page</a></p>
+  </section>
+</Base>

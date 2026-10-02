@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+
+const crumbs = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: site.url },
+    { '@type': 'ListItem', position: 2, name: 'Privacy', item: `${site.url}/privacy` },
+  ],
+};
+---
+
+<Base
+  title="Privacy"
+  description="How White City Decorating Contractors handles your name, phone number and email when you ask for a quote."
+  schemas={[crumbs]}
+>
+  <Fragment slot="hero">
+    <p class="crumbs"><a href="/">Home</a> / Privacy</p>
+    <h1>Privacy</h1>
+  </Fragment>
+
+  <section class="band prose">
+    <p>
+      This site does not use tracking cookies and it does not run ads. It does not have an
+      account to sign into.
+    </p>
+    <p>
+      If you use the contact form, your email app sends the message to {site.email}.
+      Simon keeps that message so he can reply about the job and, if you hire him, so he
+      can do the work. He does not sell the details.
+    </p>
+    <p>
+      If you call {site.phoneDisplay}, the call is between you and Simon. He may save your
+      number to arrange the visit.
+    </p>
+    <p>
+      Photos on this site were posted on the public Google listing. If you are in a photo
+      and want it taken off this site, email {site.email}.
+    </p>
+    <p>Ask any question about this by email or by phone.</p>
+  </section>
+</Base>

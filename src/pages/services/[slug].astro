@@ -1,0 +1,152 @@
+---
+import Base from '../../layouts/Base.astro';
+import Photo from '../../components/Photo.astro';
+import { site, allTowns } from '../../data/site';
+import { services } from '../../data/services';
+import { photos } from '../../data/photos';
+import { reviews } from '../../data/reviews';
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+
+const { service } = Astro.props;
+const photo = photos.find((item) => item.id === service.photoId) ?? photos[0];
+const others = services.filter((item) => item.slug !== service.slug);
+
+const quote =
+  service.slug === 'kitchen-spraying'
+    ? reviews[0]
+    : service.slug === 'woodwork-and-stairs'
+      ? reviews[3]
+      : service.slug === 'wallpapering'
+        ? reviews[3]
+        : reviews[1];
+
+const crumbs = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: site.url },
+    { '@type': 'ListItem', position: 2, name: 'Services', item: `${site.url}/services` },
+    { '@type': 'ListItem', position: 3, name: service.title, item: `${site.url}/services/${service.slug}` },
+  ],
+};
+
+const serviceSchema = {
+  '@type': 'Service',
+  name: service.title,
+  serviceType: service.title,
+  description: `${service.summary} ${service.description}`,
+  provider: { '@id': `${site.url}/#business` },
+  areaServed: allTowns.slice(0, 8).map((name) => ({ '@type': 'City', name })),
+  url: `${site.url}/services/${service.slug}`,
+};
+---
+
+<Base
+  title={service.title}
+  description={`${service.title} in Sandy and nearby towns. ${service.summary}`}
+  image={`/work/${photo.id}.webp`}
+  schemas={[crumbs, serviceSchema]}
+>
+  <Fragment slot="hero">
+    <p class="crumbs"><a href="/">Home</a> / <a href="/services">Services</a> / {service.title}</p>
+    <h1>{service.title}</h1>
+  </Fragment>
+
+  <section class="band prose">
+    <Photo photo={photo} eager caption sizes="(min-width: 760px) 640px, 100vw" />
+    <p>{service.description}</p>
+    {service.slug === 'interior-painting' && (
+      <>
+        <p>
+          A typical room is ceilings first, then walls, then the woodwork. New plaster needs
+          a proper start, or the paint will not sit. Simon has painted newly plastered ceilings
+          and walls for repeat customers, including Anita Philpot, who also had internal doors
+          and wardrobes sprayed.
+        </p>
+        <p>
+          He will talk through colour if you want a second view. Bring a chart, or ask him
+          which finish will wear well in a hall or a kitchen.
+        </p>
+      </>
+    )}
+    {service.slug === 'kitchen-spraying' && (
+      <>
+        <p>
+          The navy kitchen in the photo is the sort of result customers ask for: even colour,
+          sharp edges, and the room put back together. Anita Philpot wrote that Simon sprayed
+          her units a completely different colour, and that she would not use another painter.
+        </p>
+        <p>
+          Spraying takes preparation. Doors come off, surfaces are keyed, and dust is kept
+          down. That is slower than a quick brush coat, and it is why the finish looks flat.
+        </p>
+      </>
+    )}
+    {service.slug === 'woodwork-and-stairs' && (
+      <>
+        <p>
+          Stairs are in use while the paint dries, so the order of work matters. Treads are
+          covered. Spindles and handrails are coated so you do not feel brush drag on the rail.
+          Dark colours, like the black woodwork in the photos, need enough coats to cover.
+        </p>
+        <p>
+          If the old paint is cracking, it has to come off. The job photos show that stage:
+          a scraper on the stringer, then the finished rail. Peel Stop is used when the
+          remaining paint needs binding before the new coats.
+        </p>
+      </>
+    )}
+    {service.slug === 'wallpapering' && (
+      <>
+        <p>
+          Rob Shirley asked Simon to redecorate a whole house after an extension. The job
+          included new plaster, oak doors, and a lot of difficult wallpaper. He wrote that
+          the finish was right in every room, and he called Simon back years later.
+        </p>
+        <p>
+          Wallpaper and paint often share a room. Simon will say which walls should be papered
+          and which should be painted, and he will line up the pattern so the joins do not
+          jump out.
+        </p>
+      </>
+    )}
+    {service.slug === 'exterior-painting' && (
+      <>
+        <p>
+          Outside paint fails when the timber is damp or the old coat is peeling. Simon checks
+          that before he prices the job. Sheds, doors and fascias are the usual outside work.
+          House walls in masonry are a different job, and he will tell you if it is not one
+          he should take.
+        </p>
+        <p>
+          The door in the photo is inside a house. Outside doors are painted with the same
+          care, once the timber is dry.
+        </p>
+        <p>
+          The Facebook page shows painted exterior timber, including a shed finished in a
+          strong orange. Indoor photos are more common on Google, because that is most of the work.
+        </p>
+      </>
+    )}
+    <h2>Where this work is done</h2>
+    <p>
+      From Sandy, across Biggleswade, Potton, Bedford, St Neots and the other towns on the
+      <a href="/areas">areas page</a>. If your town is not listed, phone and ask.
+    </p>
+    <figure class="quote">
+      <blockquote>
+        <p style="white-space: pre-line">{quote.text}</p>
+      </blockquote>
+      <figcaption>{quote.name}, five stars on Google</figcaption>
+    </figure>
+    <p><a href="/contact">Ask for a quote</a></p>
+    <h2>Other services</h2>
+    <ul>
+      {others.map((item) => (
+        <li><a href={`/services/${item.slug}`}>{item.title}</a></li>
+      ))}
+    </ul>
+  </section>
+</Base>

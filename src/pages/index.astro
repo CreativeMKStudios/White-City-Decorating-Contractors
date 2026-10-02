@@ -1,0 +1,159 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import { site } from '../data/site';
+import { services } from '../data/services';
+import { photos } from '../data/photos';
+import { reviews, googleRating, googleReviewCount } from '../data/reviews';
+
+const hero = [photos[4], photos[2]];
+const more = [photos[0], photos[7], photos[6], photos[12]];
+const featured = reviews.slice(0, 2);
+
+const faq = [
+  {
+    q: 'Who does the painting?',
+    a: 'Simon Hewitt. He does the work himself, from the first look at the room to the last coat.',
+  },
+  {
+    q: 'Where does he work?',
+    a: 'He is based in Sandy. Most jobs are in Sandy, Biggleswade, Potton, Bedford and St Neots. The areas page lists the other towns.',
+  },
+  {
+    q: 'Can he spray a kitchen?',
+    a: 'Yes. He sprays unit doors, drawers and frames in a new colour. He also sprays internal doors and made-to-measure wardrobes.',
+  },
+  {
+    q: 'Does he paint new plaster?',
+    a: 'Yes. He paints newly plastered ceilings and walls, and he prepares the surface before the colour goes on.',
+  },
+  {
+    q: 'How do I get a price?',
+    a: `Call ${site.phoneDisplay} or email ${site.email}. Say which rooms need doing, and Simon will arrange a time to look.`,
+  },
+];
+
+const faqSchema = {
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<Base
+  title={site.name}
+  description="Painter and decorator in Sandy, Bedfordshire. Simon Hewitt paints rooms, sprays kitchens and doors, hangs wallpaper, and leaves the place tidy."
+  image="/work/05.webp"
+  schemas={[faqSchema]}
+>
+  <Fragment slot="hero">
+    <p class="lede">
+      White City Decorating Contractors paints and decorates homes from a base in Sandy.
+      Simon Hewitt does the work himself. Walls, ceilings, woodwork, stairs, kitchens and wallpaper.
+    </p>
+    <h1>A careful finish on your home</h1>
+  </Fragment>
+
+  <div class="pair">
+    {hero.map((photo, index) => (
+      <Photo photo={photo} eager={index === 0} sizes="(min-width: 760px) 46vw, 100vw" />
+    ))}
+  </div>
+
+  <section class="band">
+    <ul class="facts">
+      <li>
+        <strong>{googleRating}.0 from {googleReviewCount}</strong>
+        Google reviews, all five stars
+      </li>
+      <li>
+        <strong>Sandy</strong>
+        Bedfordshire, and the towns nearby
+      </li>
+      <li>
+        <strong>Simon Hewitt</strong>
+        He does the job, and he comes back if you ask
+      </li>
+    </ul>
+  </section>
+
+  <section class="band">
+    <div class="section-head">
+      <h2>What Simon does</h2>
+      <p>
+        The work is painting and decorating for houses. He will tell you if a surface needs
+        more prep, and he will say which paint suits the job.
+      </p>
+    </div>
+    <ul class="rule-list">
+      {services.map((service) => (
+        <li>
+          <a href={`/services/${service.slug}`}>
+            <strong>{service.title}</strong>
+            <span>{service.summary}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="band">
+    <div class="section-head">
+      <h2>From the jobs</h2>
+      <p>
+        These photos are from the Google listing. They show kitchens, stairs, plaster and rooms
+        painted ready to use. The full set is in the gallery.
+      </p>
+    </div>
+    <div class="gallery">
+      {more.map((photo) => (
+        <Photo photo={photo} caption sizes="(min-width: 760px) 40vw, 100vw" />
+      ))}
+    </div>
+    <p><a href="/projects">See all the photos</a></p>
+  </section>
+
+  <section class="band">
+    <div class="section-head">
+      <h2>What customers wrote</h2>
+      <p>
+        Google shows {googleReviewCount} reviews. Every one is five stars. Here are two of them,
+        copied in full. The rest are on the testimonials page and on Google.
+      </p>
+    </div>
+    <div class="quotes">
+      {featured.map((review) => (
+        <figure class="quote">
+          <blockquote>
+            <p style="white-space: pre-line">{review.text}</p>
+          </blockquote>
+          <figcaption>{review.name}, five stars on Google</figcaption>
+          {review.reply && <p class="reply">Simon replied: {review.reply}</p>}
+        </figure>
+      ))}
+    </div>
+    <p><a href="/reviews">Read the testimonials</a></p>
+  </section>
+
+  <section class="band faq">
+    <div class="section-head">
+      <h2>Questions people ask</h2>
+    </div>
+    {faq.map((item) => (
+      <details>
+        <summary>{item.q}</summary>
+        <p>{item.a}</p>
+      </details>
+    ))}
+  </section>
+
+  <section class="cta">
+    <h2>Ask for a quote</h2>
+    <p>Call Simon, or send a note about the rooms. He works Monday to Friday, 8am to 5pm, and Saturday morning.</p>
+    <p><a class="phone" href={`tel:${site.phoneTel}`}>{site.phoneDisplay}</a></p>
+    <p><a href="/contact">Contact page</a> · <a href="/areas">Towns he covers</a></p>
+  </section>
+</Base>

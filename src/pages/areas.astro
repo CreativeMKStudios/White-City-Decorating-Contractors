@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+import { site, towns } from '../data/site';
+
+const crumbs = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: site.url },
+    { '@type': 'ListItem', position: 2, name: 'Areas', item: `${site.url}/areas` },
+  ],
+};
+---
+
+<Base
+  title="Areas we cover"
+  description="White City Decorating Contractors is based in Sandy and paints homes in Biggleswade, Potton, Bedford, St Neots and nearby towns."
+  schemas={[crumbs]}
+>
+  <Fragment slot="hero">
+    <p class="crumbs"><a href="/">Home</a> / Areas</p>
+    <h1>Areas we cover</h1>
+  </Fragment>
+
+  <section class="band">
+    <div class="section-head prose">
+      <p>
+        Simon is based in Sandy, Bedfordshire. Most of his painting and decorating is in
+        Sandy and the towns a short drive away: Biggleswade, Potton, Bedford and St Neots.
+        A Facebook post also places him on a job in St Neots.
+      </p>
+      <p>
+        The Google profile is a service-area listing. He comes to your house. He does not
+        run a shop on the high street. If your town is on the list, he already works that
+        way. If it is not, call. He will say yes or no.
+      </p>
+    </div>
+    <div class="towns">
+      {towns.map((group) => (
+        <div>
+          <h2>{group.group}</h2>
+          <ul>
+            {group.places.map((place) => (
+              <li>{place}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+    <p>
+      <a href={site.googleMaps} rel="noopener noreferrer">See the Google map</a>
+      · <a href="/contact">Ask about your town</a>
+    </p>
+  </section>
+</Base>

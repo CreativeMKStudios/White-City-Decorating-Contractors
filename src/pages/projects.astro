@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import { site } from '../data/site';
+import { photos } from '../data/photos';
+
+const crumbs = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: site.url },
+    { '@type': 'ListItem', position: 2, name: 'Gallery', item: `${site.url}/projects` },
+  ],
+};
+
+const imageSchema = {
+  '@type': 'ImageGallery',
+  name: 'Painting and decorating jobs',
+  description: 'Photos from the Google listing for White City Decorating Contractors.',
+  image: photos.map((photo) => ({
+    '@type': 'ImageObject',
+    contentUrl: `${site.url}/work/${photo.id}.webp`,
+    description: photo.alt,
+  })),
+};
+---
+
+<Base
+  title="Gallery"
+  description="Photos of painting and decorating by White City Decorating Contractors: kitchens, stairs, rooms, wallpaper and preparation."
+  image="/work/03.webp"
+  schemas={[crumbs, imageSchema]}
+>
+  <Fragment slot="hero">
+    <p class="crumbs"><a href="/">Home</a> / Gallery</p>
+    <h1>Gallery</h1>
+  </Fragment>
+
+  <section class="band">
+    <div class="section-head">
+      <p>
+        Every photo here is from the Google listing for White City Decorating Contractors.
+        Some are finished rooms. Some show the messy middle: floors covered, paint scraped
+        back, units waiting for the floor to go down. A few frames are stills from job videos.
+      </p>
+    </div>
+    <div class="gallery">
+      {photos.map((photo, index) => (
+        <Photo photo={photo} caption eager={index === 0} sizes="(min-width: 980px) 30vw, (min-width: 760px) 45vw, 100vw" />
+      ))}
+    </div>
+  </section>
+</Base>

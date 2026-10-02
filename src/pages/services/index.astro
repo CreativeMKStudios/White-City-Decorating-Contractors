@@ -1,0 +1,54 @@
+---
+import Base from '../../layouts/Base.astro';
+import { site } from '../../data/site';
+import { services } from '../../data/services';
+
+const crumbs = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: site.url },
+    { '@type': 'ListItem', position: 2, name: 'Services', item: `${site.url}/services` },
+  ],
+};
+
+const offerSchema = {
+  '@type': 'ItemList',
+  name: 'Painting and decorating services',
+  itemListElement: services.map((service, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: service.title,
+    url: `${site.url}/services/${service.slug}`,
+  })),
+};
+---
+
+<Base
+  title="Services"
+  description="Painting and decorating in Sandy: interior rooms, kitchen spraying, stairs and woodwork, wallpaper, and exterior timber."
+  schemas={[crumbs, offerSchema]}
+>
+  <Fragment slot="hero">
+    <p class="crumbs"><a href="/">Home</a> / Services</p>
+    <h1>Services</h1>
+  </Fragment>
+
+  <section class="band">
+    <div class="section-head">
+      <p>
+        Simon paints and decorates houses in Sandy and the towns around it.
+        These are the jobs he is asked for most. If yours is different, call and describe it.
+      </p>
+    </div>
+    <ul class="rule-list">
+      {services.map((service) => (
+        <li>
+          <a href={`/services/${service.slug}`}>
+            <strong>{service.title}</strong>
+            <span>{service.summary} {service.description}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>
